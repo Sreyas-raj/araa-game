@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ARAA</title>
+
+    <style>
+       * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at 50% 20%, #29364f 0%, #111827 45%, #070b12 100%);
+    color: white;
+}
+
+.screen {
+    width: 100%;
+    max-width: 500px;
+    min-height: 100vh;
+    margin: auto;
+    padding: 30px 22px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* =========================
+   HOME
+========================= */
+
+#home {
+    position: relative;
+    text-align: center;
+
+    background-image: url("araa-bg.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    overflow: hidden;
+}
+.logo {
+    font-size: 78px;
+    font-weight: 900;
+    letter-spacing: 12px;
+    margin-bottom: 8px;
+}
+.logo,
+.tagline,
+.made-by {
+    visibility: hidden;
+}
+
+.tagline {
+    font-size: 17px;
+    letter-spacing: 3px;
+    opacity: 0.75;
+    margin-bottom: 55px;
+}
+
+.home-button {
+    width: 100%;
+    max-width: 330px;
+    height: 55px;
+
+    margin: 8px 0;
+
+    background: transparent;
+    color: transparent;
+
+    border: none;
+    cursor: pointer;
+}
+
+.home-button:hover {
+    transform: translateY(-2px);
+}
+
+.home-button:active {
+    transform: scale(0.97);
+}
+
+.words-button {
+    background: transparent;
+    color: transparent;
+    border: none;
+}
+
+.made-by {
+    position: absolute;
+    bottom: 25px;
+
+    font-size: 13px;
+    letter-spacing: 2px;
+    opacity: 0.5;
+}
+
+/* =========================
+   GENERAL
+========================= */
+
+h2 {
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+p {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+button {
+    width: 100%;
+    max-width: 350px;
+    padding: 16px;
+    margin: 8px 0;
+
+    border: none;
+    border-radius: 14px;
+
+    font-size: 18px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+button:active {
+    transform: scale(0.97);
+}
+
+.secondary {
+    background: #334155;
+    color: white;
+}
+
+/* =========================
+   PLAYER SETUP
+========================= */
+
+.player-box {
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 15px;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 14px;
+    margin: 6px 0;
+
+    border: none;
+    border-radius: 10px;
+
+    font-size: 16px;
+}
+
+/* =========================
+   WORD REVEAL
+========================= */
+
+.player-name {
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+.word {
+    font-size: 42px;
+    font-weight: bold;
+    margin: 35px 0;
+    text-align: center;
+}
+
+.small {
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+/* =========================
+   RESULT
+========================= */
+
+.result {
+    font-size: 30px;
+    font-weight: bold;
+    margin: 25px 0;
+    text-align: center;
+}
+
+/* =========================
+   WORD LIST
+========================= */
+
+.word-list {
+    width: 100%;
+    max-width: 400px;
+    max-height: 60vh;
+
+    overflow-y: auto;
+
+    background: rgba(255,255,255,0.08);
+    border-radius: 15px;
+    padding: 15px;
+}
+
+.word-item {
+    padding: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    text-align: center;
+}
+   .player-row {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+    margin: 10px 0;
+    padding: 5px 0;
+}
+
+.player-row input {
+    flex: 1;
+    margin: 0;
+    height: 50px;
+}
+
+.gender-select {
+    width: 65px;
+    height: 50px;
+    margin: 0;
+    padding: 5px;
+    text-align: center;
+    font-size: 22px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.players-title {
+    width: 100%;
+    max-width: 400px;
+    margin: 10px 0 5px;
+    font-size: 14px;
+    letter-spacing: 2px;
+    opacity: 0.6;
+}
+
+.result-title {
+    font-size: 14px;
+    letter-spacing: 4px;
+    opacity: 0.6;
+    margin-bottom: 25px;
+}
+
+.result-card {
+    width: 100%;
+    max-width: 400px;
+    padding: 30px 20px;
+    margin-bottom: 25px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    text-align: center;
+}
+
+.result-label {
+    font-size: 13px;
+    letter-spacing: 2px;
+    opacity: 0.6;
+    margin-bottom: 15px;
+}
+
+.result {
+    font-size: 32px;
+    font-weight: bold;
+    margin: 0;
+}
+.reveal-label {
+    font-size: 13px;
+    letter-spacing: 4px;
+    opacity: 0.6;
+    margin-bottom: 18px;
+}
+
+.pass-message {
+    opacity: 0.65;
+    margin-bottom: 25px;
+}
+
+.secret-box {
+    width: 100%;
+    max-width: 400px;
+    padding: 25px 15px;
+    margin: 10px 0 20px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    text-align: center;
+}
+
+.secret-label {
+    font-size: 12px;
+    letter-spacing: 3px;
+    opacity: 0.55;
+    margin-bottom: 10px;
+}
+</style>
+</head>
+
+<body>
+
+    <!-- HOME -->
+   <div id="home" class="screen">
+
+    <div class="logo">ARAA</div>
+
+    <div class="tagline">
+        WHO IS THE IMPOSTOR?
+    </div>
+
+    <button class="home-button" onclick="showSetup()">
+        START GAME
+    </button>
+
+    <button class="home-button words-button" onclick="showWords()">
+        WORDS
+    </button>
+
+    <div class="made-by">
+        Made by Sreyu
+    </div>
+
+</div>
+
+
+    <!-- PLAYER SETUP -->
+    <div id="setup" class="screen hidden">
+
+        <h2>PLAYER SETUP</h2>
+
+        <p>Choose number of players</p>
+
+ 
+           <div class="player-count-box">
+
+    <div class="player-count-number">
+        <span id="playerCountDisplay">3</span> PLAYERS
+    </div>
+
+    <input
+        type="range"
+        id="playerCount"
+        min="3"
+        max="10"
+        value="3"
+        step="1"
+        oninput="createPlayerInputs(); updatePlayerCountDisplay()"
+    >
+
+</div>
+        
+      <h3 class="players-title">PLAYERS</h3>
+
+<div id="players"></div>
+
+        <button onclick="startGame()">START</button>
+
+        <button class="secondary" onclick="goHome()">BACK</button>
+
+    </div>
+
+
+    <!-- WORD REVEAL -->
+   <div id="reveal" class="screen hidden">
+
+    <div class="reveal-label">PLAYER TURN</div>
+
+    <div id="currentPlayer" class="player-name"></div>
+
+    <p class="pass-message">
+        Give the phone to this player.
+    </p>
+
+    <button id="showButton" onclick="showSecret()">
+        SHOW WORD
+    </button>
+
+    <div id="secretArea" class="hidden">
+
+        <div class="secret-box">
+            <div class="secret-label">YOUR SECRET</div>
+            <div id="secretWord" class="word"></div>
+        </div>
+
+        <p class="small">
+            Remember your secret.
+        </p>
+
+        <button onclick="nextPlayer()">HIDE & NEXT</button>
+
+    </div>
+
+</div>
+
+
+    <!-- RESULT -->
+  <div id="resultScreen" class="screen hidden">
+
+    <div class="result-title">ROUND COMPLETE</div>
+
+    <div class="result-card">
+
+        <div class="result-label">THE IMPOSTOR WAS</div>
+
+        <div id="resultText" class="result"></div>
+
+    </div>
+
+    <button onclick="nextGame()">NEXT GAME</button>
+
+    <button class="secondary" onclick="goHome()">HOME</button>
+
+</div>
+
+
+    <!-- WORD LIST -->
+    <div id="wordsScreen" class="screen hidden">
+
+        <h2>WORDS</h2>
+
+        <p>Words available in ARAA</p>
+
+        <div id="wordList" class="word-list"></div>
+
+        <button class="secondary" onclick="goHome()">BACK</button>
+
+    </div>
+
+
+<script>
+
+    // =========================
+    // ARAA WORD LIST
+    // =========================
+
+    const words = [
+    "Pizza",
+    "Burger",
+    "Ice Cream",
+    "Chocolate",
+    "Cake",
+    "Biryani",
+    "Noodles",
+    "Popcorn",
+    "Sandwich",
+    "French Fries",
+
+    "Football",
+    "Cricket",
+    "Basketball",
+    "Tennis",
+    "Badminton",
+    "Swimming",
+    "Boxing",
+    "Volleyball",
+    "Hockey",
+    "Racing",
+
+    "Beach",
+    "Mountain",
+    "Forest",
+    "Desert",
+    "Island",
+    "Waterfall",
+    "River",
+    "Lake",
+    "Volcano",
+    "Cave",
+
+    "School",
+    "College",
+    "Hospital",
+    "Airport",
+    "Hotel",
+    "Restaurant",
+    "Cinema",
+    "Library",
+    "Museum",
+    "Supermarket",
+
+    "Computer",
+    "Laptop",
+    "Phone",
+    "Camera",
+    "Television",
+    "Headphones",
+    "Keyboard",
+    "Robot",
+    "Drone",
+    "Game",
+
+    "Car",
+    "Bike",
+    "Bus",
+    "Train",
+    "Airplane",
+    "Helicopter",
+    "Ship",
+    "Submarine",
+    "Rocket",
+    "Taxi",
+
+    "Tiger",
+    "Lion",
+    "Elephant",
+    "Dog",
+    "Cat",
+    "Monkey",
+    "Horse",
+    "Rabbit",
+    "Snake",
+    "Shark",
+
+    "Rain",
+    "Snow",
+    "Thunder",
+    "Lightning",
+    "Rainbow",
+    "Cloud",
+    "Storm",
+    "Sun",
+    "Moon",
+    "Star",
+
+    "Movie",
+    "Music",
+    "Guitar",
+    "Piano",
+    "Concert",
+    "Party",
+    "Wedding",
+    "Birthday",
+    "Camping",
+    "Adventure",
+
+    "Doctor",
+    "Teacher",
+    "Police",
+    "Firefighter",
+    "Pilot",
+    "Chef",
+    "Engineer",
+    "Photographer",
+    "Detective",
+    "Astronaut"
+];
+
+
+    // =========================
+    // GAME VARIABLES
+    // =========================
+
+    let players = [];
+    let currentPlayerIndex = 0;
+    let impostorIndex = 0;
+    let selectedWord = "";
+
+
+    // =========================
+    // SCREEN CONTROL
+    // =========================
+
+    function hideAllScreens() {
+
+        document.getElementById("home").classList.add("hidden");
+        document.getElementById("setup").classList.add("hidden");
+        document.getElementById("reveal").classList.add("hidden");
+        document.getElementById("resultScreen").classList.add("hidden");
+        document.getElementById("wordsScreen").classList.add("hidden");
+
+    }
+
+
+    function goHome() {
+
+        hideAllScreens();
+
+        document.getElementById("home").classList.remove("hidden");
+
+    }
+
+
+    function showSetup() {
+
+        hideAllScreens();
+
+        document.getElementById("setup").classList.remove("hidden");
+
+        createPlayerInputs();
+
+    }
+
+
+    // =========================
+    // PLAYER INPUTS
+    // =========================
+
+   function updatePlayerCountDisplay() {
+
+    const slider = document.getElementById("playerCount");
+    const display = document.getElementById("playerCountDisplay");
+
+    display.textContent = slider.value;
+
+}
+ function createPlayerInputs() {
+
+        const count =
+            Number(document.getElementById("playerCount").value);
+
+        const container =
+            document.getElementById("players");
+
+        container.innerHTML = "";
+
+        for (let i = 0; i < count; i++) {
+
+            const box = document.createElement("div");
+
+            box.className = "player-box";
+
+            box.innerHTML = `
+    <div class="player-row">
+
+        <input
+            type="text"
+            id="name${i}"
+            placeholder="Player ${i + 1} name"
+        >
+
+        <select id="gender${i}" class="gender-select">
+            <option value="male">👨</option>
+            <option value="female">👩</option>
+        </select>
+
+    </div>
+`;
+
+            container.appendChild(box);
+        }
+    }
+
+
+    // =========================
+    // START GAME
+    // =========================
+
+    function startGame() {
+
+        const count =
+            Number(document.getElementById("playerCount").value);
+
+        players = [];
+
+        for (let i = 0; i < count; i++) {
+
+            const name =
+                document.getElementById(`name${i}`).value.trim();
+
+            const gender =
+                document.getElementById(`gender${i}`).value;
+
+            if (name === "") {
+
+                alert("Please enter all player names.");
+
+                return;
+            }
+
+            players.push({
+                name: name,
+                gender: gender
+            });
+        }
+
+
+        // Random word
+
+        selectedWord =
+            words[Math.floor(Math.random() * words.length)];
+
+
+        // Random impostor
+
+        impostorIndex =
+            Math.floor(Math.random() * players.length);
+
+
+        currentPlayerIndex = 0;
+
+        showReveal();
+
+    }
+
+
+    // =========================
+    // SHOW PLAYER
+    // =========================
+
+    function showReveal() {
+
+        hideAllScreens();
+
+        document.getElementById("reveal").classList.remove("hidden");
+
+        document.getElementById("currentPlayer").textContent =
+            players[currentPlayerIndex].name;
+
+        document.getElementById("showButton").classList.remove("hidden");
+
+        document.getElementById("secretArea").classList.add("hidden");
+
+    }
+
+
+    // =========================
+    // SHOW SECRET WORD
+    // =========================
+
+ function showSecret() {
+
+    const secretWord =
+        document.getElementById("secretWord");
+
+    if (currentPlayerIndex === impostorIndex) {
+
+        if (players[currentPlayerIndex].gender === "male") {
+
+            secretWord.textContent = "EDA KALLA";
+
+        } else {
+
+            secretWord.textContent = "EDI KALLI";
+
+        }
+
+    } else {
+
+        secretWord.textContent = selectedWord;
+
+    }
+
+    document.getElementById("showButton").classList.add("hidden");
+
+    document.getElementById("secretArea").classList.remove("hidden");
+
+}
+
+
+    // =========================
+    // NEXT PLAYER
+    // =========================
+
+    function nextPlayer() {
+
+        currentPlayerIndex++;
+
+        if (currentPlayerIndex >= players.length) {
+
+            showResult();
+
+            return;
+        }
+
+        showReveal();
+
+    }
+
+
+    // =========================
+    // RESULT
+    // =========================
+
+    function showResult() {
+
+        hideAllScreens();
+
+        document
+            .getElementById("resultScreen")
+            .classList.remove("hidden");
+
+
+        const impostor =
+            players[impostorIndex];
+
+
+        let title;
+
+        if (impostor.gender === "male") {
+
+            title = "EDA KALLA";
+
+        } else {
+
+            title = "EDI KALLI";
+
+        }
+
+
+        document.getElementById("resultText").innerHTML = `
+            ${title}<br><br>
+            <span style="font-size:22px;">
+                Impostor: ${impostor.name}
+            </span>
+            <br><br>
+            <span style="font-size:18px;">
+                Word: ${selectedWord}
+            </span>
+        `;
+
+    }
+
+
+    // =========================
+    // NEXT GAME
+    // =========================
+
+    function nextGame() {
+
+        selectedWord =
+            words[Math.floor(Math.random() * words.length)];
+
+        impostorIndex =
+            Math.floor(Math.random() * players.length);
+
+        currentPlayerIndex = 0;
+
+        showReveal();
+
+    }
+
+
+    // =========================
+    // WORD LIST
+    // =========================
+
+    function showWords() {
+
+        hideAllScreens();
+
+        document
+            .getElementById("wordsScreen")
+            .classList.remove("hidden");
+
+
+        const list =
+            document.getElementById("wordList");
+
+        list.innerHTML = "";
+
+
+        words.forEach(function(word) {
+
+            const item =
+                document.createElement("div");
+
+            item.className = "word-item";
+
+            item.textContent = word;
+
+            list.appendChild(item);
+
+        });
+
+    }
+
+</script>
+
+</body>
+</html>
