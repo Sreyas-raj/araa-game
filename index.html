@@ -315,6 +315,40 @@ select {
     opacity: 0.55;
     margin-bottom: 10px;
 }
+.language-box {
+    width: 100%;
+    max-width: 400px;
+    margin: 15px 0 20px;
+    text-align: center;
+}
+
+.language-title {
+    font-size: 13px;
+    letter-spacing: 2px;
+    opacity: 0.6;
+    margin-bottom: 12px;
+}
+
+.language-buttons {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+}
+
+.language-buttons button {
+    flex: 1;
+    margin: 0;
+    padding: 12px 5px;
+    font-size: 14px;
+}
+
+.language-buttons button.selected {
+    background: white !important;
+    color: #111827 !important;
+    border: 2px solid white !important;
+    transform: scale(1.03);
+}
+
 </style>
 </head>
 
@@ -369,6 +403,36 @@ select {
     >
 
 </div>
+<div class="language-box">
+
+    <div class="language-title">WORD LANGUAGE</div>
+
+    <div class="language-buttons">
+
+        <button
+            type="button"
+            id="englishButton"
+            onclick="selectLanguage('english')">
+            🇬🇧 ENGLISH
+        </button>
+
+        <button
+            type="button"
+            id="malayalamButton"
+            onclick="selectLanguage('malayalam')">
+            🇮🇳 MALAYALAM
+        </button>
+
+        <button
+    type="button"
+    id="mixedButton"
+    onclick="selectLanguage('mixed')">
+    🌐 MIXED
+</button>
+
+    </div>
+
+</div>
         
       <h3 class="players-title">PLAYERS</h3>
 
@@ -412,7 +476,24 @@ select {
     </div>
 
 </div>
+</div>
 
+<!-- FINAL REVEAL -->
+<div id="finalRevealScreen" class="screen hidden">
+
+    <div class="reveal-label">ROUND COMPLETE</div>
+
+    <h2>READY?</h2>
+
+    <p class="pass-message">
+        Everyone has seen their secret.
+    </p>
+
+    <button onclick="showResult()">
+        REVEAL
+    </button>
+
+</div>
 
     <!-- RESULT -->
   <div id="resultScreen" class="screen hidden">
@@ -567,6 +648,119 @@ select {
 ];
 
 
+const malayalamWords = [
+    "അപ്പം",
+    "പുട്ട്",
+    "ദോശ",
+    "ഇഡലി",
+    "ബിരിയാണി",
+    "ചോറ്",
+    "ചപ്പാത്തി",
+    "സമോസ",
+    "പഴംപൊരി",
+    "ഉപ്പുമാവ്",
+
+    "ഫുട്ബോൾ",
+    "ക്രിക്കറ്റ്",
+    "ബാസ്കറ്റ്ബോൾ",
+    "ടെന്നീസ്",
+    "ബാഡ്മിന്റൺ",
+    "നീന്തൽ",
+    "വോളിബോൾ",
+    "ബോക്സിംഗ്",
+    "ഹോക്കി",
+    "ഓട്ടം",
+
+    "കടൽ",
+    "മല",
+    "കാട്",
+    "മരുഭൂമി",
+    "ദ്വീപ്",
+    "വെള്ളച്ചാട്ടം",
+    "പുഴ",
+    "തടാകം",
+    "അഗ്നിപർവ്വതം",
+    "ഗുഹ",
+
+    "സ്കൂൾ",
+    "കോളേജ്",
+    "ആശുപത്രി",
+    "വിമാനത്താവളം",
+    "ഹോട്ടൽ",
+    "റസ്റ്റോറന്റ്",
+    "സിനിമ",
+    "ലൈബ്രറി",
+    "മ്യൂസിയം",
+    "സൂപ്പർമാർക്കറ്റ്",
+
+    "കമ്പ്യൂട്ടർ",
+    "ലാപ്ടോപ്പ്",
+    "ഫോൺ",
+    "ക്യാമറ",
+    "ടെലിവിഷൻ",
+    "ഹെഡ്ഫോൺ",
+    "കീബോർഡ്",
+    "റോബോട്ട്",
+    "ഡ്രോൺ",
+    "ഗെയിം",
+
+    "കാർ",
+    "ബൈക്ക്",
+    "ബസ്",
+    "ട്രെയിൻ",
+    "വിമാനം",
+    "ഹെലികോപ്റ്റർ",
+    "കപ്പൽ",
+    "അന്തർവാഹിനി",
+    "റോക്കറ്റ്",
+    "ടാക്സി",
+
+    "കടുവ",
+    "സിംഹം",
+    "ആന",
+    "നായ",
+    "പൂച്ച",
+    "കുരങ്ങ്",
+    "കുതിര",
+    "മുയൽ",
+    "പാമ്പ്",
+    "സ്രാവ്",
+
+    "മഴ",
+    "മഞ്ഞ്",
+    "ഇടിമുഴക്കം",
+    "മിന്നൽ",
+    "മഴവില്ല്",
+    "മേഘം",
+    "കൊടുങ്കാറ്റ്",
+    "സൂര്യൻ",
+    "ചന്ദ്രൻ",
+    "നക്ഷത്രം",
+
+    "സിനിമ",
+    "സംഗീതം",
+    "ഗിത്താർ",
+    "പിയാനോ",
+    "കച്ചേരി",
+    "പാർട്ടി",
+    "വിവാഹം",
+    "ജന്മദിനം",
+    "ക്യാമ്പിംഗ്",
+    "സാഹസികത",
+
+    "ഡോക്ടർ",
+    "അധ്യാപകൻ",
+    "പോലീസ്",
+    "അഗ്നിശമന സേനാംഗം",
+    "പൈലറ്റ്",
+    "പാചകക്കാരൻ",
+    "എഞ്ചിനീയർ",
+    "ഫോട്ടോഗ്രാഫർ",
+    "ഡിറ്റക്ടീവ്",
+    "ബഹിരാകാശയാത്രികൻ"
+];
+
+
     // =========================
     // GAME VARIABLES
     // =========================
@@ -575,17 +769,41 @@ select {
     let currentPlayerIndex = 0;
     let impostorIndex = 0;
     let selectedWord = "";
+    let selectedLanguage = "english";
 
 
     // =========================
     // SCREEN CONTROL
     // =========================
 
+    function selectLanguage(language) {
+
+    selectedLanguage = language;
+
+    document.getElementById("englishButton").classList.remove("selected");
+    document.getElementById("malayalamButton").classList.remove("selected");
+    document.getElementById("mixedButton").classList.remove("selected");
+
+    if (language === "english") {
+        document.getElementById("englishButton").classList.add("selected");
+    }
+
+    if (language === "malayalam") {
+        document.getElementById("malayalamButton").classList.add("selected");
+    }
+
+    if (language === "mixed") {
+        document.getElementById("mixedButton").classList.add("selected");
+    }
+
+}
+
     function hideAllScreens() {
 
         document.getElementById("home").classList.add("hidden");
         document.getElementById("setup").classList.add("hidden");
         document.getElementById("reveal").classList.add("hidden");
+        document.getElementById("finalRevealScreen").classList.add("hidden");
         document.getElementById("resultScreen").classList.add("hidden");
         document.getElementById("wordsScreen").classList.add("hidden");
 
@@ -602,6 +820,8 @@ select {
 
 
     function showSetup() {
+
+        selectLanguage("english");
 
         hideAllScreens();
 
@@ -646,7 +866,7 @@ select {
         <input
             type="text"
             id="name${i}"
-            placeholder="Player ${i + 1} name"
+            value="Player ${i + 1}"
         >
 
         <select id="gender${i}" class="gender-select">
@@ -695,11 +915,30 @@ select {
         }
 
 
-        // Random word
+       // Random word based on selected language
 
-        selectedWord =
-            words[Math.floor(Math.random() * words.length)];
+if (selectedLanguage === "english") {
 
+    selectedWord =
+        words[Math.floor(Math.random() * words.length)];
+
+}
+
+else if (selectedLanguage === "malayalam") {
+
+    selectedWord =
+        malayalamWords[Math.floor(Math.random() * malayalamWords.length)];
+
+}
+
+else if (selectedLanguage === "mixed") {
+
+    const allWords = [...words, ...malayalamWords];
+
+    selectedWord =
+        allWords[Math.floor(Math.random() * allWords.length)];
+
+}
 
         // Random impostor
 
@@ -774,24 +1013,32 @@ select {
 
     function nextPlayer() {
 
-        currentPlayerIndex++;
+    currentPlayerIndex++;
 
-        if (currentPlayerIndex >= players.length) {
+    if (currentPlayerIndex >= players.length) {
 
-            showResult();
+        showFinalReveal();
 
-            return;
-        }
-
-        showReveal();
-
+        return;
     }
+
+    showReveal();
+
+}
 
 
     // =========================
     // RESULT
     // =========================
+function showFinalReveal() {
 
+    hideAllScreens();
+
+    document
+        .getElementById("finalRevealScreen")
+        .classList.remove("hidden");
+
+}
     function showResult() {
 
         hideAllScreens();
